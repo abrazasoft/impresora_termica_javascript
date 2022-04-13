@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <div class="container">
+        <button onclick="mostrar_impresoras()">Mostrar Impresoras</button><br><br><br>
+        <button onclick="imprimir()">Imprimir</button>
+
+    </div>
+
+
+    <script>
+        function mostrar_impresoras(){
+            connetor_plugin.obtenerImpresoras()
+                        .then(impresoras => {                    
+                         console.log(impresoras)
+                        });
+        }
+
+
+        async function imprimir(){
+            let nombreImpresora = "SAM4S ELLIX20II";
+            let api_key = "12345"
+            
+           
+            const conector = new connetor_plugin()
+                        conector.fontsize("2")
+                        conector.textaling("center")
+                        conector.text("Ferreteria Angel")
+                        conector.fontsize("1")
+                        conector.text("Calle de las margaritas #45854")
+                        conector.text("PEC7855452SCC")
+                        conector.feed("3")
+                        conector.textaling("left")
+                        conector.text("Fecha: Miercoles 8 de ABRIL 2022 13:50")                        
+                        conector.text("Cant.       Descripcion      Importe")
+                        conector.text("------------------------------------------")
+                        conector.text("1- Barrote 2x4x8                    $110")
+                        conector.text("3- Esquinero Vinil                  $165")
+                        conector.feed("1")
+                        conector.fontsize("2")
+                        conector.textaling("center")
+                        conector.text("Total: $275")
+                        conector.qr("https://abrazasoft.com")
+                        conector.feed("5")
+                        conector.cut("0") 
+
+                    const resp = await conector.imprimir(nombreImpresora, api_key);
+                    if (resp === true) {              
+                    
+                    } else {
+                         console.log("Problema al imprimir: "+resp)                    
+                    
+                    }
+        }
+
+
+    </script>
+
+ 
+    <script src="plugin_impresora_termica.js"></script>
+</body>
+</html>
